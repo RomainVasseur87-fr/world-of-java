@@ -1,5 +1,7 @@
 package worldOfJava;
 
+import interfaceWOJ.ICombattant;
+
 public abstract class Combattant implements ICombattant {
 	//champs
 	 public String nom;

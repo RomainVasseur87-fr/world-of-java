@@ -1,4 +1,4 @@
-package worldOfJava;
+package interfaceWOJ;
 
 public interface ICombattant {
 	
