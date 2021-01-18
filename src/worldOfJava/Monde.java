@@ -1,6 +1,9 @@
 package worldOfJava;
 
-public class RunWOJ {
+
+public class Monde {
+	
+	//tout mettre en static pour ne pas qu'elle soit instancier.
 
 	/**
 	* Créer un personnage avec tous ses attributs. 
@@ -22,7 +25,6 @@ public class RunWOJ {
 		System.out.println(peon1);
 		return (Personnage) peon1;
 	}
-	
 	/**
 	* Créer un monstre avec tous ses attributs. 
 	* Demande a l'utilisateur d'entrer le nom du monstre.
@@ -35,21 +37,17 @@ public class RunWOJ {
 		// Demander a l'utilisateur un nom de personnage
 		String nom = Tools.inputString("nommer votre monstre :");
 		mob1.setNom(nom);
-		int vie = Tools.inputInt("entrer le nombre de point de vie du monstre:");
-		mob1.setPointDeVie(vie);
-		int force = Tools.inputInt("entrer la force du monstre:");
-		mob1.setDegats(force);
 	    // Retourner l'instance du personnage
 		System.out.println(mob1);
 		return (Monstre) mob1;
 	}
 	
-	
-	public static void main(String[] args) {
-		System.out.println("hello world");
-		personnageFactory();
-		monstreFactory();
-
+	/**
+	 * methode qui permet d'afficher les informations du monde.
+	 */
+	public static void afficherInformations() {
+		System.out.println();
+		
 	}
-
+	
 }

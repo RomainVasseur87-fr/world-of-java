@@ -10,9 +10,17 @@ public class Tools {
 	* @return la ligne entré par l'utilisateur.
 	*/
 	public static String inputString(String message) {
-		System.out.println(message);
 		Scanner scan = new Scanner(System.in);
 		return scan.nextLine();
 		}
-
+	/*
+	* Demande a l'utilisateur d'entré un entier.
+	* @param message: de demande.
+	* @return un entier.
+	*/
+	public static int inputInt(String message) {
+			String result = inputString(message);
+			return Integer.parseInt(result);
+			
+		}
 }

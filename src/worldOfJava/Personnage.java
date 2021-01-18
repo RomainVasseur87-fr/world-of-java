@@ -1,6 +1,6 @@
 package worldOfJava;
 
-public class Personnage {
+public class Personnage extends Combattant {
 	//champs
 	private String nom;
 	private int pointDeVie;
