@@ -1,6 +1,6 @@
 package worldOfJava;
 
-public abstract class Combattant {
+public abstract class Combattant implements ICombattant {
 	//champs
 	 public String nom;
      public int pointDeVie;
@@ -42,6 +42,24 @@ public abstract class Combattant {
 		this.degats = degats;
 	}
 	//methodes
+	/**
+	 * methode qui appelle la methode defendre de l'adversaire et affiche votre nombdre de degats.
+	 */
+	public void attaquer(ICombattant adversaire) {
+		// Appeler la methode Defence de l'adversaire en passant en Params.
+		adversaire.defendre(degats);
+	    // Afficher un message pour notifier de l'attaque
+		System.out.println("vous infligez :"+degats + " à " + adversaire.getNom());
+	}
+	/**
+	 * methode qui soustraire aux points de vie du combattants les degats entrés en parramteres
+	 */
+    public void defendre(int degats) {
+    	// Soustraire aux points de vie les degats passé en params
+    	setPointDeVie( getPointDeVie() - degats);
+    	
+    }
+    
 	/**
 	 * methode toString pour afficher les information du combattant.
 	 */

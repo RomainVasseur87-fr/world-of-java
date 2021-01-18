@@ -129,4 +129,30 @@ public class Monde {
 		
 		afficherMort(personnage, monstre);
 	}
+
+	/**
+	 * fonction pour faire combatre à tour de role deux combattants
+	 * jusqu'à ce que l'un des deux a ces point de vie qui passe en dessous de zero.
+	 * utilise les methodes attaquer et defendre des combattants.
+	 * 
+	 * @param combattant1 qui attaque.
+	 * @param combattant2 qui riposte.
+	 */
+	public static void combat2(Combattant combattant1, Combattant combattant2) {
+		boolean turn = true;
+		while (combattant1.getPointDeVie() > 0 && combattant2.getPointDeVie() > 0) {
+			if (turn) {
+				combattant1.attaquer(combattant2);
+				System.out.println("il reste "+combattant2.getPointDeVie()+" PV à votre adversaire");
+			} else {
+				System.out.println("votre adversaire vous inflige "+combattant2.getDegats()+"!");
+				combattant2.attaquer(combattant1);
+				System.out.println("il vous reste "+combattant1.getPointDeVie());
+			}
+			turn = !turn;
+			
+		}
+		
+		afficherMort(combattant1, combattant2);
+	}
 }
