@@ -1,11 +1,11 @@
 package worldOfJava;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class Monde {
-
 	// tout mettre en static pour ne pas qu'elle soit instancier.
-
+	public static Scanner scanner = new Scanner(System.in);
 	/**
 	 * Créer un personnage avec tous ses attributs. Demande a l'utilisateur d'entrer
 	 * le nom du personnage. retour: une instance de la classe Personnage
@@ -110,10 +110,12 @@ public class Monde {
 	 * @param monstre    qui riposte.
 	 */
 	public static void combat(Combattant personnage, Combattant monstre) {
+		int tour = 1;
 		// definir un boolean turn
 		boolean turn = true;
 		/* verifier si les deux adversaires ont encore de la vie */
 		while (personnage.getPointDeVie() > 0 && monstre.getPointDeVie() > 0) {
+			System.out.println("----- Tour :" + tour + " ------");
 			if (turn) {
 				System.out.println("vous infligez "+personnage.getDegats()+"!");
 				monstre.setPointDeVie(monstre.getPointDeVie() - personnage.getDegats());
@@ -124,7 +126,8 @@ public class Monde {
 				System.out.println("il vous reste "+personnage.getPointDeVie());
 			}
 			turn = !turn;
-			
+			tour++;
+			scanner.nextLine();
 		}
 		
 		afficherMort(personnage, monstre);
@@ -139,8 +142,10 @@ public class Monde {
 	 * @param combattant2 qui riposte.
 	 */
 	public static void combat2(Combattant combattant1, Combattant combattant2) {
+		int tour = 1;
 		boolean turn = true;
 		while (combattant1.getPointDeVie() > 0 && combattant2.getPointDeVie() > 0) {
+			System.out.println("----- Tour :" + tour + " ------");
 			if (turn) {
 				combattant1.attaquer(combattant2);
 				System.out.println("il reste "+combattant2.getPointDeVie()+" PV à votre adversaire");
@@ -150,7 +155,8 @@ public class Monde {
 				System.out.println("il vous reste "+combattant1.getPointDeVie());
 			}
 			turn = !turn;
-			
+			tour++;
+			scanner.nextLine();
 		}
 		
 		afficherMort(combattant1, combattant2);

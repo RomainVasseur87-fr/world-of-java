@@ -6,9 +6,7 @@ public class Monstre extends Combattant{
 	public Monstre() {
 	}
 	public Monstre(String nom, int pointDeVie, int degats) {
-		this.nom = nom;
-		this.pointDeVie = pointDeVie;
-		this.degats = degats;
+		super(nom, degats, pointDeVie);
 	}
 	
 	//methode

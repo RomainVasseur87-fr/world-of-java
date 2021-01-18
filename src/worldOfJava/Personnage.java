@@ -15,9 +15,7 @@ public class Personnage extends Combattant {
 	 * @param degats infligés par le parsonnage
 	 */
 	public Personnage(String nom, int pointDeVie, int degats) {
-		this.nom = nom;
-		this.pointDeVie = pointDeVie;
-		this.degats = degats;
+		super(nom, degats, pointDeVie);
 	}
 	
 	//methode 

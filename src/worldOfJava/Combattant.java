@@ -44,21 +44,16 @@ public abstract class Combattant implements ICombattant {
 		this.degats = degats;
 	}
 	//methodes
-	/**
-	 * methode qui appelle la methode defendre de l'adversaire et affiche votre nombdre de degats.
-	 */
 	public void attaquer(ICombattant adversaire) {
 		// Appeler la methode Defence de l'adversaire en passant en Params.
-		adversaire.defendre(degats);
+		adversaire.defendre(this.degats);
 	    // Afficher un message pour notifier de l'attaque
-		System.out.println("vous infligez :"+degats + " à " + adversaire.getNom());
+		System.out.println(this.getNom() + " inflige :"+degats + " à " + adversaire.getNom());
 	}
-	/**
-	 * methode qui soustraire aux points de vie du combattants les degats entrés en parramteres
-	 */
+	
     public void defendre(int degats) {
     	// Soustraire aux points de vie les degats passé en params
-    	setPointDeVie( getPointDeVie() - degats);
+    	this.setPointDeVie( this.getPointDeVie() - degats);
     	
     }
     
