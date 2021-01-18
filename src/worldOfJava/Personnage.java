@@ -42,6 +42,14 @@ public class Personnage {
 	public void setDegats(int degats) {
 		this.degats = degats;
 	}
+	//methode 
+	/**
+	 * methode pour afficher les champs de mon personnage.
+	 */
+	@Override
+	public String toString() {
+		return nom + " : [pointDeVie=" + pointDeVie + ", degats=" + degats + "]";
+	}
 	
 	
 
