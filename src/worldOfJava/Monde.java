@@ -3,6 +3,10 @@ package worldOfJava;
 import java.util.Random;
 import java.util.Scanner;
 
+import entiteWOJ.Combattant;
+import entiteWOJ.Monstre;
+import entiteWOJ.Personnage;
+
 public class Monde {
 	// tout mettre en static pour ne pas qu'elle soit instancier.
 	public static Scanner scanner = new Scanner(System.in);
@@ -14,7 +18,8 @@ public class Monde {
 	public static Combattant personnageFactory() {
 		// Creer un nouveau personnage en utilisant le constructeur avec tous ses params
 		// (dont le nom qui vient d'être choisi par l'utilisateur)
-		Combattant peon1 = new Personnage("pnj1", 20, 1);
+		Classe classe = new Classe();
+		Combattant peon1 = new Personnage("nom",100,15,classe);
 		// Demander a l'utilisateur un nom de personnage
 		String nom = Tools.inputString("nommer votre personnage :");
 		peon1.setNom(nom);
@@ -22,6 +27,8 @@ public class Monde {
 		peon1.setPointDeVie(vie);
 		int force = Tools.inputInt("entrer votre force:");
 		peon1.setDegats(force);
+		//ajout de la classe du personnage
+		classe.setNom(Tools.inputString("entrer le nom de votre classe: ") );
 		// Retourner l'instance du personnage
 		System.out.println(peon1);
 		return peon1;
@@ -123,7 +130,7 @@ public class Monde {
 			} else {
 				System.out.println("le monstre vous inflige "+monstre.getDegats()+"!");
 				personnage.setPointDeVie(personnage.getPointDeVie() - personnage.getDegats());
-				System.out.println("il vous reste "+personnage.getPointDeVie());
+				System.out.println("il vous reste "+personnage.getPointDeVie()+" PV");
 			}
 			turn = !turn;
 			tour++;

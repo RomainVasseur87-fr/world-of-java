@@ -1,4 +1,4 @@
-package worldOfJava;
+package entiteWOJ;
 
 public class Monstre extends Combattant{
 

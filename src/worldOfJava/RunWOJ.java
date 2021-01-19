@@ -1,5 +1,7 @@
 package worldOfJava;
 
+import entiteWOJ.Combattant;
+
 public class RunWOJ {
 
 	public static void testCombat() {
@@ -19,6 +21,7 @@ public class RunWOJ {
 	public static void testCombat2() {
 		Monde.combat2(Monde.personnageFactory(), Monde.monstreFactory() );
 	}
+	
 	
 	public static void main(String[] args) {
 		System.out.println("hello world");

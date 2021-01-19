@@ -1,5 +1,7 @@
 package worldOfJava;
 
+import java.util.Random;
+
 import interfaceWOJ.IAttaque;
 import interfaceWOJ.ICombattant;
 
@@ -43,7 +45,7 @@ public class BasicAttaque implements IAttaque {
 	public void setChanceToucher(double chanceToucher) {
 		if (chanceToucher >= 0 && chanceToucher <= 100) {
 			this.chanceToucher = chanceToucher;
-		}else {
+		} else {
 			throw new RuntimeException("la chance de toucher doit etre en zero et 100");
 		}
 
@@ -67,12 +69,27 @@ public class BasicAttaque implements IAttaque {
 
 	// methodes
 
+	/**
+	 * fonction pour generer un nombre aleatoire ente o et 100. si ce nombre est > à
+	 * la chance de toucher du lanceur l'attaque renvoie les degats du lanceur.
+	 * sinon l'attaque est null.
+	 */
 	@Override
 	public int LancerAttaque(ICombattant lanceur, ICombattant cible) {
 		// Avec un nombre aleatoire random compris entre 0 et 100
+		int hazar = new Random().nextInt(101);
 		// si random < chanceToucher
-		// retourner lanceur.Degats
-		// sinon renvoyer 0 et afficher un message d'echec
-		return 0;
+		if (hazar < this.chanceToucher) {
+			// retourner lanceur.Degats
+			setDegats(lanceur.getDegats());
+			System.out.println(
+					"l'attaque " + getNom() + " a inflgé " + getDegats() + " pts de dégats à " + cible.getNom());
+		} else {
+			// sinon renvoyer 0 et afficher un message d'echec
+			setDegats(0);
+			System.out.println("l'attaque " + getNom() + " a échoué!");
+		}
+
+		return degats;
 	}
 }

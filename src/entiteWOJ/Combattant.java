@@ -1,4 +1,4 @@
-package worldOfJava;
+package entiteWOJ;
 
 import interfaceWOJ.ICombattant;
 
