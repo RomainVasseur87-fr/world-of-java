@@ -2,6 +2,7 @@ package worldOfJava;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -10,18 +11,47 @@ import entiteWOJ.Monstre;
 import entiteWOJ.Personnage;
 import interfaceWOJ.IAttaque;
 
+// tout mettre en static pour ne pas qu'elle soit instancier.
 public class Monde {
-	// tout mettre en static pour ne pas qu'elle soit instancier.
+
+	private static Map<String, Classe> classes;
+
+	
+	/**
+	 * fonction pour recuperer une classe dans la liste des classes de la Map classes.
+	 * @param nom de la classe recherché
+	 * @return la Classe dont le nom a été rcherché.
+	 */
+	public static Classe GetClasse(String nom) {
+		// La classe avec le nom : "nom"
+		Classe C1 = classes.get(nom);
+		return C1;
+	}
+	
+	/**
+	 * fonction pour creer un collection de classes dans une Map qui les references par le nom.
+	 * le nom de chaque classe est rentrer par un scanner.
+	 */
+	public static void ClassesCollectionFactory() {
+		for (int i =0; i < 5 ; i++) {
+			String nom = scanner.next();
+			classes.put( nom , classeFactory(nom) );
+		}
+	}
+	
 	public static Scanner scanner = new Scanner(System.in);
+
 	/**
 	 * Créer un personnage avec tous ses attributs. Demande a l'utilisateur d'entrer
 	 * le nom du personnage. retour: une instance de la classe Personnage
 	 * correctement instancié.
 	 **/
 	public static Combattant personnageFactory() {
+		System.out.println("entrer le nom de votre classe :");
+		String nomclasse= scanner.next();
 		// Creer un nouveau personnage en utilisant le constructeur avec tous ses params
 		// (dont le nom qui vient d'être choisi par l'utilisateur)
-		Combattant peon1 = new Personnage("nom",100,15,classeFactory());
+		Combattant peon1 = new Personnage("nom", 100, 15, GetClasse(nomclasse));
 		// Demander a l'utilisateur un nom de personnage
 		String nom = Tools.inputString("nommer votre personnage :");
 		peon1.setNom(nom);
@@ -54,32 +84,36 @@ public class Monde {
 		System.out.println(mob1);
 		return mob1;
 	}
+
 	/**
 	 * methode pour creer une attaque basique.
+	 * 
 	 * @return une attaque basique.
 	 */
 	public static BasicAttaque BasicAttaqueFactory() {
 		System.out.println("creation d'une attaque basique");
-		BasicAttaque a = new BasicAttaque ("nom",10, 50,  "ceci est une attaque basique");
+		BasicAttaque a = new BasicAttaque("nom", 10, 50, "ceci est une attaque basique");
 		System.out.println("entrer le nom de l'attaque est ");
 		a.setNom(scanner.next());
 		return a;
 	}
+
 	/**
 	 * fabrication d'une classe avec 2 attaques
+	 * 
 	 * @return la classe fabriqué
 	 */
-	public static Classe classeFactory() {
+	public static Classe classeFactory(String nom) {
 		System.out.println("ceation d'une classe----");
-		Classe c = new Classe ();
+		Classe c = new Classe();
 		System.out.println("entrer le nom de la classe est : ");
-		c.setNom(scanner.next());
-		
+		c.setNom(nom);
+
 		List<IAttaque> attaques = new ArrayList<>();
-		attaques.add(BasicAttaqueFactory() );
-		attaques.add(BasicAttaqueFactory() );
+		attaques.add(BasicAttaqueFactory());
+		attaques.add(BasicAttaqueFactory());
 		c.setAttaques(attaques);
-		
+
 		return c;
 	}
 
@@ -152,26 +186,26 @@ public class Monde {
 		while (personnage.getPointDeVie() > 0 && monstre.getPointDeVie() > 0) {
 			System.out.println("----- Tour :" + tour + " ------");
 			if (turn) {
-				System.out.println("vous infligez "+personnage.getDegats()+"!");
+				System.out.println("vous infligez " + personnage.getDegats() + "!");
 				monstre.setPointDeVie(monstre.getPointDeVie() - personnage.getDegats());
-				System.out.println("il reste "+monstre.getPointDeVie()+" PV au monstre");
+				System.out.println("il reste " + monstre.getPointDeVie() + " PV au monstre");
 			} else {
-				System.out.println("le monstre vous inflige "+monstre.getDegats()+"!");
+				System.out.println("le monstre vous inflige " + monstre.getDegats() + "!");
 				personnage.setPointDeVie(personnage.getPointDeVie() - personnage.getDegats());
-				System.out.println("il vous reste "+personnage.getPointDeVie()+" PV");
+				System.out.println("il vous reste " + personnage.getPointDeVie() + " PV");
 			}
 			turn = !turn;
 			tour++;
 			scanner.nextLine();
 		}
-		
+
 		afficherMort(personnage, monstre);
 	}
 
 	/**
-	 * fonction pour faire combatre à tour de role deux combattants
-	 * jusqu'à ce que l'un des deux a ces point de vie qui passe en dessous de zero.
-	 * utilise les methodes attaquer et defendre des combattants.
+	 * fonction pour faire combatre à tour de role deux combattants jusqu'à ce que
+	 * l'un des deux a ces point de vie qui passe en dessous de zero. utilise les
+	 * methodes attaquer et defendre des combattants.
 	 * 
 	 * @param combattant1 qui attaque.
 	 * @param combattant2 qui riposte.
@@ -183,17 +217,18 @@ public class Monde {
 			System.out.println("----- Tour :" + tour + " ------");
 			if (turn) {
 				combattant1.attaquer(combattant2);
-				System.out.println("il reste "+combattant2.getPointDeVie()+" PV à votre adversaire");
+				System.out.println("il reste " + combattant2.getPointDeVie() + " PV à votre adversaire");
 			} else {
-				System.out.println("votre adversaire vous inflige "+combattant2.getDegats()+"!");
+				System.out.println("votre adversaire vous inflige " + combattant2.getDegats() + "!");
 				combattant2.attaquer(combattant1);
-				System.out.println("il vous reste "+combattant1.getPointDeVie());
+				System.out.println("il vous reste " + combattant1.getPointDeVie());
 			}
 			turn = !turn;
 			tour++;
 			scanner.nextLine();
 		}
-		
+
 		afficherMort(combattant1, combattant2);
 	}
+
 }
