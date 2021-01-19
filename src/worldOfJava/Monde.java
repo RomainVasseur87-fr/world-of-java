@@ -255,4 +255,13 @@ public class Monde {
 		afficherMort(combattant1, combattant2);
 	}
 
+
+	public static List<Monstre> getMeute() {
+		return meute;
+	}
+
+	public static void setMeute(List<Monstre> meute) {
+		Monde.meute = meute;
+	}
+
 }
