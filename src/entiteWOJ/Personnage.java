@@ -1,8 +1,6 @@
 package entiteWOJ;
 
-import interfaceWOJ.IAttaque;
 import interfaceWOJ.ICombattant;
-import worldOfJava.BasicAttaque;
 import worldOfJava.Classe;
 
 public class Personnage extends Combattant {
@@ -41,26 +39,18 @@ public class Personnage extends Combattant {
 
 	// methode
 	/**
-	 * surcharge de la methode attaque combattant permettant de selectionner les attaques de classe.
+	 * surcharge de la methode attaque combattant permettant de selectionner
+	 * les attaques de classe du personnage et en claculant lancerattaque.
 	 */
 	@Override
 	public void attaquer(ICombattant adversaire) {
-		IAttaque atk = new BasicAttaque();
-		atk = classe.getAttaque();
-		//les degat de  cette attaque je doit trouver comment faire ?????
-		this.degats = atk.getDegats();
 		// Appeler la methode Defence de l'adversaire en passant en Params.
-		adversaire.defendre(this.degats);
+		adversaire.defendre(classe.getAttaque().LancerAttaque(this, adversaire));
 	    // Afficher un message pour notifier de l'attaque
-		System.out.println(this.getNom() + " inflige :"+degats + " à " + adversaire.getNom());
+		System.out.println(this.getNom() + " utilise "+classe.getAttaque().getNom() 
+				+ " et inflige inflige :"+degats + " à " + adversaire.getNom());
 	}
 	
-	@Override
-	public void defendre(int degats) {
-    	// Soustraire aux points de vie les degats passé en params
-    	this.setPointDeVie( this.getPointDeVie() - degats);
-    	
-    }
 	/**
 	 * methode pour afficher les champs de mon personnage.
 	 */

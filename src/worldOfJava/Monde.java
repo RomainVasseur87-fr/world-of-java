@@ -1,11 +1,14 @@
 package worldOfJava;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 import entiteWOJ.Combattant;
 import entiteWOJ.Monstre;
 import entiteWOJ.Personnage;
+import interfaceWOJ.IAttaque;
 
 public class Monde {
 	// tout mettre en static pour ne pas qu'elle soit instancier.
@@ -18,8 +21,7 @@ public class Monde {
 	public static Combattant personnageFactory() {
 		// Creer un nouveau personnage en utilisant le constructeur avec tous ses params
 		// (dont le nom qui vient d'être choisi par l'utilisateur)
-		Classe classe = new Classe();
-		Combattant peon1 = new Personnage("nom",100,15,classe);
+		Combattant peon1 = new Personnage("nom",100,15,classeFactory());
 		// Demander a l'utilisateur un nom de personnage
 		String nom = Tools.inputString("nommer votre personnage :");
 		peon1.setNom(nom);
@@ -27,8 +29,6 @@ public class Monde {
 		peon1.setPointDeVie(vie);
 		int force = Tools.inputInt("entrer votre force:");
 		peon1.setDegats(force);
-		//ajout de la classe du personnage
-		classe.setNom(Tools.inputString("entrer le nom de votre classe: ") );
 		// Retourner l'instance du personnage
 		System.out.println(peon1);
 		return peon1;
@@ -53,6 +53,34 @@ public class Monde {
 		// Retourner l'instance du personnage
 		System.out.println(mob1);
 		return mob1;
+	}
+	/**
+	 * methode pour creer une attaque basique.
+	 * @return une attaque basique.
+	 */
+	public static BasicAttaque BasicAttaqueFactory() {
+		System.out.println("creation d'une attaque basique");
+		BasicAttaque a = new BasicAttaque ("nom",10, 50,  "ceci est une attaque basique");
+		System.out.println("entrer le nom de l'attaque est ");
+		a.setNom(scanner.next());
+		return a;
+	}
+	/**
+	 * fabrication d'une classe avec 2 attaques
+	 * @return la classe fabriqué
+	 */
+	public static Classe classeFactory() {
+		System.out.println("ceation d'une classe----");
+		Classe c = new Classe ();
+		System.out.println("entrer le nom de la classe est : ");
+		c.setNom(scanner.next());
+		
+		List<IAttaque> attaques = new ArrayList<>();
+		attaques.add(BasicAttaqueFactory() );
+		attaques.add(BasicAttaqueFactory() );
+		c.setAttaques(attaques);
+		
+		return c;
 	}
 
 	/**

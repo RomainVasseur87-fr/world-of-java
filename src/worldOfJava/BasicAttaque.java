@@ -95,8 +95,6 @@ public class BasicAttaque implements IAttaque {
 		if (hazar < this.chanceToucher) {
 			// retourner lanceur.Degats
 			setDegats(lanceur.getDegats());
-			System.out.println(
-					"l'attaque " + getNom() + " a inflgé " + getDegats() + " pts de dégats à " + cible.getNom());
 		} else {
 			// sinon renvoyer 0 et afficher un message d'echec
 			setDegats(0);

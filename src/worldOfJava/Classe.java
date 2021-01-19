@@ -8,8 +8,8 @@ import interfaceWOJ.IAttaque;
 
 public class Classe {
 	// champs
-	public String nom;
-	public List<IAttaque> attaques = new ArrayList<>();
+	private String nom;
+	private List<IAttaque> attaques = new ArrayList<>();
 
 	// constructeurs
 	/**
