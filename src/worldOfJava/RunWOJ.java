@@ -1,6 +1,7 @@
 package worldOfJava;
 
 import entiteWOJ.Combattant;
+import entiteWOJ.Groupe;
 
 public class RunWOJ {
 
@@ -27,9 +28,14 @@ public class RunWOJ {
 		Monde.combat2(Monde.personnageFactory(), Monde.monstreFactory() );
 	}
 	
+	public static void testGroupeMonstre() {
+		Groupe rencontre1 = Monde.groupeMonstre(3);
+		System.out.println(rencontre1);
+	}
+	
 	public static void main(String[] args) {
 		System.out.println("hello world");
-		testclasse();
+		testGroupeMonstre();
 		
 
 	}

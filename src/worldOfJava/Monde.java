@@ -8,14 +8,35 @@ import java.util.Random;
 import java.util.Scanner;
 
 import entiteWOJ.Combattant;
+import entiteWOJ.Groupe;
 import entiteWOJ.Monstre;
 import entiteWOJ.Personnage;
 import interfaceWOJ.IAttaque;
+import interfaceWOJ.ICombattant;
 
 // tout mettre en static pour ne pas qu'elle soit instancier.
 public class Monde {
 
 	private static Map<String, Classe> classes = new HashMap<>();
+	private static List<Monstre> meute = new ArrayList<>();
+	
+
+	/**
+	 * fonction qui creer un groupe de "nombreMonstre" monstres choisie aleatoirement. 
+	 * @param nombreMonstre correspond au nombre de monstre dans le groupe à creer
+	 * @return le groupe creer.
+	 */
+	public static Groupe groupeMonstre (int nombreMonstre) {
+		// creer un groupe de monstre avec les "nombreMonstre" monstres choisies aleatoirement
+		//dans la liste de monstre
+		Groupe groupe = new Groupe();
+		for (int j = 0; j < nombreMonstre; j++) {
+			ICombattant m = monstreFactory();
+			groupe.AddCombattant(m);
+		}
+		
+		return groupe;
+	}
 
 	
 	/**
@@ -71,21 +92,17 @@ public class Monde {
 	}
 
 	/**
-	 * Créer un monstre avec tous ses attributs. Demande a l'utilisateur d'entrer le
-	 * nom du monstre. retour: une instance de la classe monstre correctement
+	 * Créer un monstre avec tous ses attributs.
+	 * retour: une instance de la classe monstre correctement
 	 * instancié.
+	 * @param Combattant correspondant au monstre creer.
 	 **/
 	public static Combattant monstreFactory() {
-		// Creer un nouveau monstre en utilisant le constructeur avec tous ses params
-		// (dont le nom choisi aleatoirement)
-		Combattant mob1 = new Monstre("mob1", 3, 1);
-		// Demander a l'utilisateur un nom de personnage
-		String nom = nomComplet();
-		mob1.setNom(nom);
-		int vie = Tools.inputInt("entrer le nombre de point de vie du monstre:");
-		mob1.setPointDeVie(vie);
-		int force = Tools.inputInt("entrer la force du monstre:");
-		mob1.setDegats(force);
+		// Creer un nouveau monstre aleatoirement
+		Combattant mob1 = new Monstre();
+		mob1.setNom(nomComplet());
+		mob1.setPointDeVie(new Random().nextInt(100) );
+		mob1.setDegats(new Random().nextInt(30) );
 		// Retourner l'instance du personnage
 		System.out.println(mob1);
 		return mob1;
