@@ -10,6 +10,10 @@ public interface IAttaque {
 	public String getDescription();
 
 	public double getChanceToucher();
+	
+	public int getDegats();
+	
+	public void setDegats(int degats);
 
 	public void setNom(String nom);
 

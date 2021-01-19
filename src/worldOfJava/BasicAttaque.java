@@ -16,9 +16,19 @@ public class BasicAttaque implements IAttaque {
 	public BasicAttaque() {
 	}
 
-	public BasicAttaque(int degats, double chanceToucher) {
+	/**
+	 * constructeur d'attaque basic
+	 * 
+	 * @param nom
+	 * @param degats
+	 * @param chanceToucher
+	 * @param description
+	 */
+	public BasicAttaque(String nom, int degats, double chanceToucher, String description) {
+		this.nom = nom;
 		this.degats = degats;
 		this.chanceToucher = chanceToucher;
+		this.description = description;
 	}
 
 	// getteurs et setteurs
@@ -33,10 +43,12 @@ public class BasicAttaque implements IAttaque {
 		this.nom = nom;
 	}
 
+	@Override
 	public int getDegats() {
 		return degats;
 	}
 
+	@Override
 	public void setDegats(int degats) {
 		this.degats = degats;
 	}
@@ -73,11 +85,12 @@ public class BasicAttaque implements IAttaque {
 	 * fonction pour generer un nombre aleatoire ente o et 100. si ce nombre est > à
 	 * la chance de toucher du lanceur l'attaque renvoie les degats du lanceur.
 	 * sinon l'attaque est null.
+	 * @param degats les degats de l'attaques.
 	 */
 	@Override
 	public int LancerAttaque(ICombattant lanceur, ICombattant cible) {
 		// Avec un nombre aleatoire random compris entre 0 et 100
-		int hazar = new Random().nextInt(101);
+		double hazar = new Random().nextDouble() * 100;
 		// si random < chanceToucher
 		if (hazar < this.chanceToucher) {
 			// retourner lanceur.Degats
