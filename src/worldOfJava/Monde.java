@@ -1,6 +1,7 @@
 package worldOfJava;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -14,13 +15,13 @@ import interfaceWOJ.IAttaque;
 // tout mettre en static pour ne pas qu'elle soit instancier.
 public class Monde {
 
-	private static Map<String, Classe> classes;
+	private static Map<String, Classe> classes = new HashMap<>();
 
 	
 	/**
 	 * fonction pour recuperer une classe dans la liste des classes de la Map classes.
-	 * @param nom de la classe recherché
-	 * @return la Classe dont le nom a été rcherché.
+	 * @param nom de la classe recherchÃ©
+	 * @return la Classe dont le nom a Ã©tÃ© rcherchÃ©.
 	 */
 	public static Classe GetClasse(String nom) {
 		// La classe avec le nom : "nom"
@@ -34,7 +35,12 @@ public class Monde {
 	 */
 	public static void ClassesCollectionFactory() {
 		for (int i =0; i < 5 ; i++) {
+			System.out.println("ceation d'une classe----");
+			System.out.println("entrer le nom d'une classe : ");
 			String nom = scanner.next();
+			if (nom.equals("") ) {
+				nom = scanner.nextLine();
+			}
 			classes.put( nom , classeFactory(nom) );
 		}
 	}
@@ -42,15 +48,15 @@ public class Monde {
 	public static Scanner scanner = new Scanner(System.in);
 
 	/**
-	 * Créer un personnage avec tous ses attributs. Demande a l'utilisateur d'entrer
+	 * CrÃ©er un personnage avec tous ses attributs. Demande a l'utilisateur d'entrer
 	 * le nom du personnage. retour: une instance de la classe Personnage
-	 * correctement instancié.
+	 * correctement instanciÃ©.
 	 **/
 	public static Combattant personnageFactory() {
 		System.out.println("entrer le nom de votre classe :");
 		String nomclasse= scanner.next();
 		// Creer un nouveau personnage en utilisant le constructeur avec tous ses params
-		// (dont le nom qui vient d'être choisi par l'utilisateur)
+		// (dont le nom qui vient d'Ãªtre choisi par l'utilisateur)
 		Combattant peon1 = new Personnage("nom", 100, 15, GetClasse(nomclasse));
 		// Demander a l'utilisateur un nom de personnage
 		String nom = Tools.inputString("nommer votre personnage :");
@@ -65,9 +71,9 @@ public class Monde {
 	}
 
 	/**
-	 * Créer un monstre avec tous ses attributs. Demande a l'utilisateur d'entrer le
+	 * CrÃ©er un monstre avec tous ses attributs. Demande a l'utilisateur d'entrer le
 	 * nom du monstre. retour: une instance de la classe monstre correctement
-	 * instancié.
+	 * instanciÃ©.
 	 **/
 	public static Combattant monstreFactory() {
 		// Creer un nouveau monstre en utilisant le constructeur avec tous ses params
@@ -91,22 +97,23 @@ public class Monde {
 	 * @return une attaque basique.
 	 */
 	public static BasicAttaque BasicAttaqueFactory() {
-		System.out.println("creation d'une attaque basique");
+		System.out.println("creation d'une attaque basique ------");
 		BasicAttaque a = new BasicAttaque("nom", 10, 50, "ceci est une attaque basique");
 		System.out.println("entrer le nom de l'attaque est ");
 		a.setNom(scanner.next());
+		if (a.getNom().equals("") ) {
+			a.setNom( scanner.nextLine() );
+		}
 		return a;
 	}
 
 	/**
 	 * fabrication d'une classe avec 2 attaques
 	 * 
-	 * @return la classe fabriqué
+	 * @return la classe fabriquÃ©
 	 */
 	public static Classe classeFactory(String nom) {
-		System.out.println("ceation d'une classe----");
 		Classe c = new Classe();
-		System.out.println("entrer le nom de la classe est : ");
 		c.setNom(nom);
 
 		List<IAttaque> attaques = new ArrayList<>();
@@ -138,7 +145,7 @@ public class Monde {
 	 * fonction qui permet de creer aleatoirement un nom de monstre en assamblant un
 	 * mot de la liste debutNom et un mot de la liste finNom.
 	 * 
-	 * @return le nom du monstre creée.
+	 * @return le nom du monstre creÃ©e.
 	 */
 	public static String nomComplet() {
 		String nomComplet = debutNom[new Random().nextInt(debutNom.length)]
@@ -172,8 +179,8 @@ public class Monde {
 	}
 
 	/**
-	 * fonction pour faire combatre à tour de role un personnage et un monstre
-	 * jusqu'à ce que l'un des deux à ces point de vie qui passe en dessous de zero.
+	 * fonction pour faire combatre Ã  tour de role un personnage et un monstre
+	 * jusqu'Ã  ce que l'un des deux Ã  ces point de vie qui passe en dessous de zero.
 	 * 
 	 * @param personnage qui attaque.
 	 * @param monstre    qui riposte.
@@ -203,7 +210,7 @@ public class Monde {
 	}
 
 	/**
-	 * fonction pour faire combatre à tour de role deux combattants jusqu'à ce que
+	 * fonction pour faire combatre Ã  tour de role deux combattants jusqu'Ã  ce que
 	 * l'un des deux a ces point de vie qui passe en dessous de zero. utilise les
 	 * methodes attaquer et defendre des combattants.
 	 * 
@@ -217,7 +224,7 @@ public class Monde {
 			System.out.println("----- Tour :" + tour + " ------");
 			if (turn) {
 				combattant1.attaquer(combattant2);
-				System.out.println("il reste " + combattant2.getPointDeVie() + " PV à votre adversaire");
+				System.out.println("il reste " + combattant2.getPointDeVie() + " PV Ã  votre adversaire");
 			} else {
 				System.out.println("votre adversaire vous inflige " + combattant2.getDegats() + "!");
 				combattant2.attaquer(combattant1);

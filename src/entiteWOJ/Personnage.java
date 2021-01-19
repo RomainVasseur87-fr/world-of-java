@@ -48,7 +48,8 @@ public class Personnage extends Combattant {
 		adversaire.defendre(classe.getAttaque().LancerAttaque(this, adversaire));
 	    // Afficher un message pour notifier de l'attaque
 		System.out.println(this.getNom() + " utilise "+classe.getAttaque().getNom() 
-				+ " et inflige inflige :"+degats + " à " + adversaire.getNom());
+				+ " et inflige inflige :"+this.classe.getAttaque().getDegats() 
+				+ " à " + adversaire.getNom());
 	}
 	
 	/**

@@ -22,10 +22,14 @@ public class RunWOJ {
 		Monde.combat2(Monde.personnageFactory(), Monde.monstreFactory() );
 	}
 	
+	public static void testclasse() {
+		Monde.ClassesCollectionFactory();
+		Monde.combat2(Monde.personnageFactory(), Monde.monstreFactory() );
+	}
 	
 	public static void main(String[] args) {
 		System.out.println("hello world");
-		testCombat2();
+		testclasse();
 		
 
 	}
