@@ -4,9 +4,9 @@ import interfaceWOJ.ICombattant;
 
 public abstract class Combattant implements ICombattant {
 	//champs
-	 public String nom;
-     public int pointDeVie;
-     public int degats;
+	 private String nom;
+     private int pointDeVie;
+     private int degats;
      //constructeurs
      /**
       * constructeur vide de combattant

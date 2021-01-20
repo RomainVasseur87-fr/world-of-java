@@ -20,15 +20,26 @@ public class Monde {
 	private static Map<String, Classe> classes = new HashMap<>();
 	private static List<Monstre> meute = new ArrayList<>();
 	
+	
+	public static void genese() {
+		System.out.println("---***--- Bonjour ---***---");
+		System.out.println("Choisir une option:");
+		System.out.println("1: Lancer un combat 1v1");
+		System.out.println("2: Lancer un combat de groupe");
+		System.out.println("3: One vs World Hardcore Edition");
+		System.out.println("4: Informations");
+		System.out.println("---------------------------");
+		System.out.println(">>>");
+	}
 
+	
+	
 	/**
 	 * fonction qui creer un groupe de "nombreMonstre" monstres choisie aleatoirement. 
 	 * @param nombreMonstre correspond au nombre de monstre dans le groupe à creer
 	 * @return le groupe creer.
 	 */
-	public static Groupe groupeMonstre (int nombreMonstre) {
-		// creer un groupe de monstre avec les "nombreMonstre" monstres choisies aleatoirement
-		//dans la liste de monstre
+	public static Groupe creationGroupeMonstre (int nombreMonstre) {
 		Groupe groupe = new Groupe();
 		for (int j = 0; j < nombreMonstre; j++) {
 			ICombattant m = monstreFactory();
@@ -37,8 +48,21 @@ public class Monde {
 		
 		return groupe;
 	}
-
 	
+	/**
+	 * fonction pour creer un groupe de personnage 
+	 * @param nombrePersonnage
+	 * @return
+	 */
+	public static Groupe creationGroupePersonnage (int nombrePersonnage) {
+		Groupe groupe = new Groupe();
+		for (int j = 0; j < nombrePersonnage; j++) {
+			ICombattant perso = personnageFactory();
+			groupe.AddCombattant(perso);
+		}
+		
+		return groupe;
+	}
 	/**
 	 * fonction pour recuperer une classe dans la liste des classes de la Map classes.
 	 * @param nom de la classe recherché

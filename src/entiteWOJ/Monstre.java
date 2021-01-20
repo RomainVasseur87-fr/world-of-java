@@ -15,7 +15,7 @@ public class Monstre extends Combattant{
 	 */
 	@Override
 	public String toString() {
-		return nom + ": [pointDeVie=" + pointDeVie + ", degats=" + degats + "]";
+		return this.getNom() + ": [pointDeVie=" + this.getPointDeVie() + ", degats=" + this.getDegats() + "]";
 	}
 
 

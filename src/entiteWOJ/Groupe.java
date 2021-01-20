@@ -108,5 +108,11 @@ public class Groupe implements ICombattant {
 		}
 		return mort;
 	}
+
+	@Override
+	public String toString() {
+		return "Groupe [groupe=" + groupe + "]";
+	}
+	
 	
 }	

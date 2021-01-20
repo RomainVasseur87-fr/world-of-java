@@ -29,13 +29,17 @@ public class RunWOJ {
 	}
 	
 	public static void testGroupeMonstre() {
-		Groupe rencontre1 = Monde.groupeMonstre(3);
+		Groupe rencontre1 = Monde.creationGroupeMonstre(3);
 		System.out.println(rencontre1);
+	}
+	public static void testGroupePersonnage() {
+		Groupe bande1 = Monde.creationGroupePersonnage(3);
+		System.out.println(bande1);
 	}
 	
 	public static void main(String[] args) {
 		System.out.println("hello world");
-		testGroupeMonstre();
+		testGroupePersonnage();
 		
 
 	}
