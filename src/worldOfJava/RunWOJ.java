@@ -42,9 +42,13 @@ public class RunWOJ {
 		Monde.combat1v1();
 	}
 	
+	public static void testMonde() {
+		System.out.println( Monde.GetClasse("mage") );
+	}
+	
 	public static void main(String[] args) {
 		System.out.println("hello world");
-		testcombat1v1();
+		testMonde();
 		
 
 	}

@@ -103,4 +103,11 @@ public class BasicAttaque implements IAttaque {
 
 		return degats;
 	}
+
+	@Override
+	public String toString() {
+		return " [" + nom + ", degats=" + degats + ", chanceToucher=" + chanceToucher + ", description="
+				+ description + "]";
+	}
+	
 }

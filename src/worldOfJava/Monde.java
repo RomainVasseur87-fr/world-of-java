@@ -17,9 +17,33 @@ import interfaceWOJ.ICombattant;
 // tout mettre en static pour ne pas qu'elle soit instancier.
 public class Monde {
 
-	private static Map<String, Classe> classes = new HashMap<>();
+	private static Map<String, Classe> classes = initClasse();
 	private static List<Monstre> meute = new ArrayList<>();
 
+	/**
+	 * methode qui crrer et retourne un dictionnaire de classe.
+	 * @return
+	 */
+	public static Map<String, Classe> initClasse(){
+		Map<String, Classe> classes = new HashMap<>();
+		classes.put("mage", new Classe("mage",initIAttaque() ) );
+		classes.put("gueurrier", new Classe("mage",initIAttaque() ) );
+		classes.put("massasin", new Classe("mage",initIAttaque() ) );
+		classes.put("pecor", new Classe("mage",initIAttaque() ) );
+		return classes;
+	}
+	/**
+	 * methode qui creer et retourne un dictionnaire de classe.
+	 * @return
+	 */
+	public static List<IAttaque> initIAttaque(){
+		List<IAttaque> attaques = new ArrayList<>();
+		attaques.add(new BasicAttaque("attaque legere",10,90,"c'est une attaque" ) );
+		attaques.add(new BasicAttaque("attaque normale",30,80,"c'est une attaque" ) );
+		attaques.add(new BasicAttaque("attaque lourde",50,50,"c'est une attaque" ) );
+		return attaques;
+	}
+	
 	/**
 	 * methode qui affiche les options.
 	 */
@@ -84,10 +108,9 @@ public class Monde {
 	 * @param nom de la classe recherché
 	 * @return la Classe dont le nom a été rcherché.
 	 */
-	public static Classe GetClasse(String nom) {
+	public static Classe getClasse(String nom) {
 		// La classe avec le nom : "nom"
-		Classe C1 = classes.get(nom);
-		return C1;
+		return classes.get(nom);
 	}
 
 	/**
@@ -113,7 +136,7 @@ public class Monde {
 	 * le nom du personnage. retour: une instance de la classe Personnage
 	 * correctement instancié.
 	 **/
-	public static Combattant personnageFactory() {
+	public static ICombattant personnageFactory() {
 		// creation de la classe du personage
 		System.out.println("entrer le nom de votre classe :");
 		String nomclasse = scanner.next();
@@ -129,7 +152,59 @@ public class Monde {
 		System.out.println(peon1);
 		return peon1;
 	}
+	
+	/**
+	 * correction de personnage factory
+	 * @return la classe creer.
+	 */
+	public static ICombattant personnageFactory2() {
+		// creation de la classe du personage
+		System.out.println("----creation de personnage----");
+		String nom = "";
+		int degats = 0;
+		int pointdevie =0;
+		Classe classe = new Classe();
+		
+		while(nom.equals("")) {
+			System.out.println("saisir un nom :");
+			nom = scanner.next();
+		}
+		while(degats == 0) {
+			System.out.println("saisir un nnombre de degats :");
+			degats = scanner.nextInt();
+		}
+		while(pointdevie == 0) {
+			System.out.println("saisir un nnombre de point de vie :");
+			pointdevie = scanner.nextInt();
+		}
+		//choisir ça classe
+		classe = choisirClasse();
+		
+		return new Personnage(nom, pointdevie, degats, classe);
+	}
+	
+	/**
+	 * permet de selectionner une classe parmis la liste du dictionnaire de classe.
+	 * @return la classe selectionnée.
+	 */
+	public static Classe choisirClasse() {
+		System.out.println("voici les classes disponible : ");
+		for (Map.Entry<String, Classe> classe : classes.entrySet()) {
+			System.out.println(classe.getKey() );
+		}
+		System.out.println("choisissez votre classe : ");
+		Classe c = null;
+		
+		while (c == null) {
+			c = getClasse(scanner.next() );
+			if (c == null) {
+				System.out.println("cette classe n'exite pas, recommencer");
+			}
+		}
+		return c;
+	}
 
+	
 	/**
 	 * Créer un monstre avec tous ses attributs. retour: une instance de la classe
 	 * monstre correctement instancié.
