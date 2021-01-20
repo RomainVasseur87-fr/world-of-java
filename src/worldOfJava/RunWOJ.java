@@ -2,6 +2,7 @@ package worldOfJava;
 
 import entiteWOJ.Combattant;
 import entiteWOJ.Groupe;
+import interfaceWOJ.ICombattant;
 
 public class RunWOJ {
 
@@ -10,8 +11,8 @@ public class RunWOJ {
 	}
 	
 	public static void testAtkDef() {
-		Combattant peon1 = Monde.personnageFactory();
-		Combattant mob1 = Monde.monstreFactory();
+		ICombattant peon1 = Monde.personnageFactory();
+		ICombattant mob1 = Monde.monstreFactory();
 		
 		peon1.attaquer(mob1);
 		peon1.attaquer(mob1);
@@ -43,7 +44,7 @@ public class RunWOJ {
 	}
 	
 	public static void testMonde() {
-		System.out.println( Monde.GetClasse("mage") );
+		System.out.println( Monde.getClasse("mage") );
 	}
 	
 	public static void main(String[] args) {
