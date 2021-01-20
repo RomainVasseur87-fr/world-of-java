@@ -13,7 +13,13 @@ public interface ICombattant {
 	 * parramteres
 	 */
 	public void defendre(int degats);
-
+	
+	/**
+	 * methode qui return true si le combattant est mort, sinon return false
+	 * @return
+	 */
+	public boolean estMort();
+	
 	// Getters et Setters
 	public String getNom();
 

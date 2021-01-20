@@ -57,6 +57,11 @@ public abstract class Combattant implements ICombattant {
     	
     }
     
+    @Override
+    public boolean estMort() {
+    	return this.getPointDeVie()>0 ? false : true;
+    }
+    
 	/**
 	 * methode toString pour afficher les information du combattant.
 	 */

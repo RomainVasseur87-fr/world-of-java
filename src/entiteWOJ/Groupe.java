@@ -6,12 +6,12 @@ import java.util.Random;
 
 import interfaceWOJ.ICombattant;
 
-public class Groupe implements ICombattant {
-	
-	//champs
+public class Groupe extends Combattant {
+
+	// champs
 	private List<ICombattant> groupe = new ArrayList<>();
-	
-	//constructeurs
+
+	// constructeurs
 	public Groupe() {
 	}
 
@@ -19,7 +19,7 @@ public class Groupe implements ICombattant {
 		this.groupe = groupe;
 	}
 
-	//getteurs et setteurs
+	// getteurs et setteurs
 	public List<ICombattant> getGroupe() {
 		return groupe;
 	}
@@ -28,91 +28,71 @@ public class Groupe implements ICombattant {
 		this.groupe = groupe;
 	}
 
-	@Override
-	public String getNom() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getDegats() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getPointDeVie() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setNom(String nom) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setDegats(int degats) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setPointDeVie(int pointDeVie) {
-		// TODO Auto-generated method stub
-		
-	}
-	//methodes
-	
-	/**
-	 * foncion qui choisie un Combattant aleatoire et attaque avec le Combattant enemie
-	 */
-	@Override
-	public void attaquer(ICombattant adversaire) {
-		ICombattant attaquant = groupe.get(new Random().nextInt(groupe.size() ));
-		attaquant.attaquer(adversaire);
-	}
+	// methodes
 
 	/**
-	 * fonction qui defend avec un Combattant aleatoire.
+	 * methode qui choisi un combattant vivant du groupe aleatoirement pour attaquer
+	 * un adverse aleatoirement du groupes adverses.
 	 */
-	@Override
-	public void defendre(int degats) {
-		ICombattant defandant = groupe.get(new Random().nextInt(groupe.size() ));
-		defandant.setPointDeVie( defandant.getPointDeVie() - degats);
+	public void attaquer(Groupe adversaires) {
+		ICombattant attaquant = getAliveCombattant().get(new Random().nextInt(getAliveCombattant().size()));
+		ICombattant defandant = adversaires.getAliveCombattant().get(new Random().nextInt(adversaires.getAliveCombattant().size()));
+		if (attaquant instanceof Personnage) {
+			Personnage personnage = (Personnage) attaquant;
+			personnage.attaquer(defandant);
+		} else {
+			attaquant.attaquer(defandant);
+		}
 	}
-	
+
+
 	/**
 	 * fonction pour ajouter un combattant au groupe de combattant
+	 * 
 	 * @param combattant à ajouter.
 	 */
 	public void AddCombattant(ICombattant combattant) {
 		this.groupe.add(combattant);
 	}
-	
+
 	/**
 	 * fonction qui renvoie vrai si tous les combattant d'un groupe sont morts.
-	 * sinon renvoie vrai s'il y a au moins 1 survivant.
-	 * @return 
+	 * sinon renvoie false s'il y a au moins 1 survivant.
+	 * 
+	 * @return
 	 */
-	public boolean EstMort() {
+	@Override
+	public boolean estMort() {
 		boolean mort = false;
-		//qui renvoie vrai si tout les Combattant de l'equipe sont mort
 		for (ICombattant combattant : groupe) {
-			if (combattant.getPointDeVie() <=0 ) {
+			if (combattant.getPointDeVie() <= 0) {
 				mort = true;
-			}else {
+				break;
+			} else {
 				mort = false;
 			}
 		}
 		return mort;
+	}
+	
+	/**
+	 * fonction pour selectionner les combattants encore en vie du groupe
+	 * @return
+	 */
+	public List<ICombattant> getAliveCombattant(){
+		List<ICombattant> aliveCombattant = new ArrayList<>();
+		for (ICombattant combattant : this.groupe) {
+			if (!combattant.estMort()) {
+				aliveCombattant.add(combattant);
+			}
+		}
+		return aliveCombattant;
+		
 	}
 
 	@Override
 	public String toString() {
 		return "Groupe [groupe=" + groupe + "]";
 	}
-	
-	
-}	
+
+}

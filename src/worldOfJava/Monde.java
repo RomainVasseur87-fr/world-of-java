@@ -18,7 +18,8 @@ import interfaceWOJ.ICombattant;
 public class Monde {
 
 	private static Map<String, Classe> classes = initClasse();
-	private static List<Monstre> meute = new ArrayList<>();
+	private static Groupe monstres = new Groupe();
+	private static Groupe personnages = new Groupe();
 
 	/**
 	 * methode qui crrer et retourne un dictionnaire de classe.
@@ -27,9 +28,9 @@ public class Monde {
 	public static Map<String, Classe> initClasse(){
 		Map<String, Classe> classes = new HashMap<>();
 		classes.put("mage", new Classe("mage",initIAttaque() ) );
-		classes.put("gueurrier", new Classe("mage",initIAttaque() ) );
-		classes.put("massasin", new Classe("mage",initIAttaque() ) );
-		classes.put("pecor", new Classe("mage",initIAttaque() ) );
+		classes.put("guerrier", new Classe("guerrier",initIAttaque() ) );
+		classes.put("assasin", new Classe("assasin",initIAttaque() ) );
+		classes.put("pecor", new Classe("pecor",initIAttaque() ) );
 		return classes;
 	}
 	/**
@@ -62,8 +63,8 @@ public class Monde {
 	 * methode qui cree deux combattant (un personnage et un monstre) et les fait
 	 * s'affrontter.
 	 */
-	public static void combat1v1() {
-		ICombattant C1 = personnageFactory();
+	public static void combat1v1(ICombattant perso1, ICombattant perso2) {
+		ICombattant C1 = perso1;
 		ICombattant C2 = monstreFactory();
 		combat(C1, C2);
 	}
@@ -75,30 +76,52 @@ public class Monde {
 	 * @param nombreMonstre correspond au nombre de monstre dans le groupe à creer
 	 * @return le groupe creer.
 	 */
-	public static Groupe creationGroupeMonstre(int nombreMonstre) {
-		Groupe groupe = new Groupe();
+	public static Groupe groupeMonstreFactory(int nombreMonstre) {
+		Groupe monstres = new Groupe();
 		for (int j = 0; j < nombreMonstre; j++) {
-			ICombattant m = monstreFactory();
-			groupe.AddCombattant(m);
+			monstres.AddCombattant(monstreFactory());
+		}
+		return monstres;
+
+	}
+	/**
+	 * fonction pour creer un groupe de personnage
+	 * @param nombrePersonnage
+	 * @return
+	 */
+	public static Groupe groupePersonnageFactory(int nombrePersonnage) {
+		Groupe groupe = new Groupe();
+		for (int j = 0; j < nombrePersonnage; j++) {
+			groupe.AddCombattant(personnageFactory2());
 		}
 
 		return groupe;
 	}
-
+	
 	/**
-	 * fonction pour creer un groupe de personnage
-	 * 
-	 * @param nombrePersonnage
-	 * @return
+	 * methode pour faire s'affronter un groupe de personnage et un groupe de monstres
+	 * @param personnages
+	 * @param monstres
 	 */
-	public static Groupe creationGroupePersonnage(int nombrePersonnage) {
-		Groupe groupe = new Groupe();
-		for (int j = 0; j < nombrePersonnage; j++) {
-			ICombattant perso = personnageFactory();
-			groupe.AddCombattant(perso);
+	public static void combatGvG(Groupe personnages, Groupe monstres) {
+		int tour =1;
+		while(!personnages.estMort() && !monstres.estMort()) {
+			System.out.println("---- tour " + tour + "---------");
+			//tour impaire
+			if (tour % 2 != 0) {
+				personnages.attaquer(monstres);
+				//tour pair
+			} else {
+				monstres.attaquer(personnages);
+			}
+			tour ++;
 		}
-
-		return groupe;
+		
+		if (personnages.estMort()) {
+			System.out.println("les monstres ont gagnés ! ");
+		} else {
+			System.out.println(" vous avez remportez la bataille!");
+		}
 	}
 
 	/**
@@ -170,11 +193,11 @@ public class Monde {
 			nom = scanner.next();
 		}
 		while(degats == 0) {
-			System.out.println("saisir un nnombre de degats :");
+			System.out.println("saisir un nombre de degats :");
 			degats = scanner.nextInt();
 		}
 		while(pointdevie == 0) {
-			System.out.println("saisir un nnombre de point de vie :");
+			System.out.println("saisir un nombre de point de vie :");
 			pointdevie = scanner.nextInt();
 		}
 		//choisir ça classe
@@ -336,14 +359,6 @@ public class Monde {
 		}
 
 		afficherMort(combattant1, combattant2);
-	}
-
-	public static List<Monstre> getMeute() {
-		return meute;
-	}
-
-	public static void setMeute(List<Monstre> meute) {
-		Monde.meute = meute;
 	}
 
 }

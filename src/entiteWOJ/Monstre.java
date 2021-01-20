@@ -17,6 +17,14 @@ public class Monstre extends Combattant{
 	public String toString() {
 		return this.getNom() + ": [pointDeVie=" + this.getPointDeVie() + ", degats=" + this.getDegats() + "]";
 	}
+	@Override
+	public boolean estMort() {
+		boolean mort = false;
+		if (this.getPointDeVie() <= 0) {
+			mort = true;
+		}
+		return mort;
+	}
 
 
 }

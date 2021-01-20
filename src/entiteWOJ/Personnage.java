@@ -1,6 +1,5 @@
 package entiteWOJ;
 
-import interfaceWOJ.IAttaque;
 import interfaceWOJ.ICombattant;
 import worldOfJava.Classe;
 
@@ -24,7 +23,7 @@ public class Personnage extends Combattant {
 	 * @param degats     du personnage
 	 * @param classe     du personnage
 	 */
-	public Personnage(String nom, int pointDeVie, int degats, Classe classe) {
+	public Personnage(String nom, int degats, int pointDeVie, Classe classe) {
 		super(nom, degats, pointDeVie);
 		this.classe = classe;
 	}
@@ -46,13 +45,26 @@ public class Personnage extends Combattant {
 	@Override
 	public void attaquer(ICombattant adversaire) {
 		// Appeler la methode Defence de l'adversaire en passant en Params.
-		IAttaque atk = classe.getAttaque();
-		adversaire.defendre(atk.LancerAttaque(this, adversaire));
+		System.out.println(this.getNom() + " attaque"+ adversaire.getNom());
+		adversaire.defendre(this.classe.getAttaque().LancerAttaque(this, adversaire));
 	    // Afficher un message pour notifier de l'attaque
-		System.out.println(this.getNom() + " utilise "+atk.getNom() 
-				+ " et inflige inflige :"+atk.getDegats() 
-				+ " à " + adversaire.getNom());
+		if (adversaire.estMort()) {
+			System.out.println(adversaire.getNom()+ " est mort!");
+		} else {
+			System.out.println("il reste à "+adversaire.getNom() + " : "+adversaire.getPointDeVie()+" PV");
+		}
 	}
+	
+	
+	@Override
+	public boolean estMort() {
+		boolean mort = false;
+		if (this.getPointDeVie() <=0) {
+			mort = true;
+		}
+		return mort;
+	}
+
 	
 	/**
 	 * methode pour afficher les champs de mon personnage.
