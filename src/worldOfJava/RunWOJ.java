@@ -20,12 +20,12 @@ public class RunWOJ {
 		
 	}
 	public static void testCombat2() {
-		Monde.combat2(Monde.personnageFactory(), Monde.monstreFactory() );
+		Monde.combat(Monde.personnageFactory(), Monde.monstreFactory() );
 	}
 	
 	public static void testclasse() {
 		Monde.ClassesCollectionFactory();
-		Monde.combat2(Monde.personnageFactory(), Monde.monstreFactory() );
+		Monde.combat(Monde.personnageFactory(), Monde.monstreFactory() );
 	}
 	
 	public static void testGroupeMonstre() {

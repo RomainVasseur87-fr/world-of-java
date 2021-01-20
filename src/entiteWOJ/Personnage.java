@@ -1,5 +1,6 @@
 package entiteWOJ;
 
+import interfaceWOJ.IAttaque;
 import interfaceWOJ.ICombattant;
 import worldOfJava.Classe;
 
@@ -45,10 +46,11 @@ public class Personnage extends Combattant {
 	@Override
 	public void attaquer(ICombattant adversaire) {
 		// Appeler la methode Defence de l'adversaire en passant en Params.
-		adversaire.defendre(classe.getAttaque().LancerAttaque(this, adversaire));
+		IAttaque atk = classe.getAttaque();
+		adversaire.defendre(atk.LancerAttaque(this, adversaire));
 	    // Afficher un message pour notifier de l'attaque
-		System.out.println(this.getNom() + " utilise "+classe.getAttaque().getNom() 
-				+ " et inflige inflige :"+this.classe.getAttaque().getDegats() 
+		System.out.println(this.getNom() + " utilise "+atk.getNom() 
+				+ " et inflige inflige :"+atk.getDegats() 
 				+ " à " + adversaire.getNom());
 	}
 	

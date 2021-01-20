@@ -41,7 +41,7 @@ public class Monde {
 	public static void combat1v1() {
 		ICombattant C1 = personnageFactory();
 		ICombattant C2 = monstreFactory();
-		combat2(C1, C2);
+		combat(C1, C2);
 	}
 
 	/**
@@ -234,36 +234,6 @@ public class Monde {
 
 	}
 
-	/**
-	 * fonction pour faire combatre à tour de role un personnage et un monstre
-	 * jusqu'à ce que l'un des deux à ces point de vie qui passe en dessous de zero.
-	 * 
-	 * @param personnage qui attaque.
-	 * @param monstre    qui riposte.
-	 */
-	public static void combat(ICombattant personnage, ICombattant monstre) {
-		int tour = 1;
-		// definir un boolean turn
-		boolean turn = true;
-		/* verifier si les deux adversaires ont encore de la vie */
-		while (personnage.getPointDeVie() > 0 && monstre.getPointDeVie() > 0) {
-			System.out.println("----- Tour :" + tour + " ------");
-			if (turn) {
-				System.out.println("vous infligez " + personnage.getDegats() + "!");
-				monstre.setPointDeVie(monstre.getPointDeVie() - personnage.getDegats());
-				System.out.println("il reste " + monstre.getPointDeVie() + " PV au monstre");
-			} else {
-				System.out.println("le monstre vous inflige " + monstre.getDegats() + "!");
-				personnage.setPointDeVie(personnage.getPointDeVie() - personnage.getDegats());
-				System.out.println("il vous reste " + personnage.getPointDeVie() + " PV");
-			}
-			turn = !turn;
-			tour++;
-			scanner.nextLine();
-		}
-
-		afficherMort(personnage, monstre);
-	}
 
 	/**
 	 * fonction pour faire combatre à tour de role deux combattants jusqu'à ce que
@@ -273,7 +243,7 @@ public class Monde {
 	 * @param combattant1 qui attaque.
 	 * @param combattant2 qui riposte.
 	 */
-	public static void combat2(ICombattant combattant1, ICombattant combattant2) {
+	public static void combat(ICombattant combattant1, ICombattant combattant2) {
 		int tour = 1;
 		boolean turn = true;
 		while (combattant1.getPointDeVie() > 0 && combattant2.getPointDeVie() > 0) {
