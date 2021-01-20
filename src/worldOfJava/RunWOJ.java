@@ -37,9 +37,14 @@ public class RunWOJ {
 		System.out.println(bande1);
 	}
 	
+	public static void testcombat1v1() {
+		Monde.genese();
+		Monde.combat1v1();
+	}
+	
 	public static void main(String[] args) {
 		System.out.println("hello world");
-		testGroupePersonnage();
+		testcombat1v1();
 		
 
 	}

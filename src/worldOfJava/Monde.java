@@ -19,8 +19,10 @@ public class Monde {
 
 	private static Map<String, Classe> classes = new HashMap<>();
 	private static List<Monstre> meute = new ArrayList<>();
-	
-	
+
+	/**
+	 * methode qui affiche les options.
+	 */
 	public static void genese() {
 		System.out.println("---***--- Bonjour ---***---");
 		System.out.println("Choisir une option:");
@@ -32,39 +34,53 @@ public class Monde {
 		System.out.println(">>>");
 	}
 
-	
-	
 	/**
-	 * fonction qui creer un groupe de "nombreMonstre" monstres choisie aleatoirement. 
+	 * methode qui cree deux combattant (un personnage et un monstre) et les fait
+	 * s'affrontter.
+	 */
+	public static void combat1v1() {
+		ICombattant C1 = personnageFactory();
+		ICombattant C2 = monstreFactory();
+		combat2(C1, C2);
+	}
+
+	/**
+	 * fonction qui creer un groupe de "nombreMonstre" monstres choisie
+	 * aleatoirement.
+	 * 
 	 * @param nombreMonstre correspond au nombre de monstre dans le groupe à creer
 	 * @return le groupe creer.
 	 */
-	public static Groupe creationGroupeMonstre (int nombreMonstre) {
+	public static Groupe creationGroupeMonstre(int nombreMonstre) {
 		Groupe groupe = new Groupe();
 		for (int j = 0; j < nombreMonstre; j++) {
 			ICombattant m = monstreFactory();
 			groupe.AddCombattant(m);
 		}
-		
+
 		return groupe;
 	}
-	
+
 	/**
-	 * fonction pour creer un groupe de personnage 
+	 * fonction pour creer un groupe de personnage
+	 * 
 	 * @param nombrePersonnage
 	 * @return
 	 */
-	public static Groupe creationGroupePersonnage (int nombrePersonnage) {
+	public static Groupe creationGroupePersonnage(int nombrePersonnage) {
 		Groupe groupe = new Groupe();
 		for (int j = 0; j < nombrePersonnage; j++) {
 			ICombattant perso = personnageFactory();
 			groupe.AddCombattant(perso);
 		}
-		
+
 		return groupe;
 	}
+
 	/**
-	 * fonction pour recuperer une classe dans la liste des classes de la Map classes.
+	 * fonction pour recuperer une classe dans la liste des classes de la Map
+	 * classes.
+	 * 
 	 * @param nom de la classe recherché
 	 * @return la Classe dont le nom a été rcherché.
 	 */
@@ -73,23 +89,23 @@ public class Monde {
 		Classe C1 = classes.get(nom);
 		return C1;
 	}
-	
+
 	/**
-	 * fonction pour creer un collection de classes dans une Map qui les references par le nom.
-	 * le nom de chaque classe est rentrer par un scanner.
+	 * fonction pour creer un collection de classes dans une Map qui les references
+	 * par le nom. le nom de chaque classe est rentrer par un scanner.
 	 */
 	public static void ClassesCollectionFactory() {
-		for (int i =0; i < 5 ; i++) {
+		for (int i = 0; i < 5; i++) {
 			System.out.println("ceation d'une classe----");
 			System.out.println("entrer le nom d'une classe : ");
 			String nom = scanner.next();
-			if (nom.equals("") ) {
+			if (nom.equals("")) {
 				nom = scanner.nextLine();
 			}
-			classes.put( nom , classeFactory(nom) );
+			classes.put(nom, classeFactory(nom));
 		}
 	}
-	
+
 	public static Scanner scanner = new Scanner(System.in);
 
 	/**
@@ -98,35 +114,34 @@ public class Monde {
 	 * correctement instancié.
 	 **/
 	public static Combattant personnageFactory() {
+		// creation de la classe du personage
 		System.out.println("entrer le nom de votre classe :");
-		String nomclasse= scanner.next();
+		String nomclasse = scanner.next();
 		// Creer un nouveau personnage en utilisant le constructeur avec tous ses params
 		// (dont le nom qui vient d'être choisi par l'utilisateur)
-		Combattant peon1 = new Personnage("nom", 100, 15, GetClasse(nomclasse));
+		Combattant peon1 = new Personnage("nom", 100, 15, classeFactory(nomclasse));
 		// Demander a l'utilisateur un nom de personnage
 		String nom = Tools.inputString("nommer votre personnage :");
 		peon1.setNom(nom);
-		int vie = Tools.inputInt("entrer votre nombre de point de vie :");
-		peon1.setPointDeVie(vie);
-		int force = Tools.inputInt("entrer votre force:");
-		peon1.setDegats(force);
+		peon1.setPointDeVie(new Random().nextInt(100) + 100);
+		peon1.setDegats(new Random().nextInt(50) + 10);
 		// Retourner l'instance du personnage
 		System.out.println(peon1);
 		return peon1;
 	}
 
 	/**
-	 * Créer un monstre avec tous ses attributs.
-	 * retour: une instance de la classe monstre correctement
-	 * instancié.
+	 * Créer un monstre avec tous ses attributs. retour: une instance de la classe
+	 * monstre correctement instancié.
+	 * 
 	 * @param Combattant correspondant au monstre creer.
 	 **/
 	public static Combattant monstreFactory() {
 		// Creer un nouveau monstre aleatoirement
 		Combattant mob1 = new Monstre();
 		mob1.setNom(nomComplet());
-		mob1.setPointDeVie(new Random().nextInt(100) );
-		mob1.setDegats(new Random().nextInt(30) );
+		mob1.setPointDeVie(new Random().nextInt(90) + 10);
+		mob1.setDegats(new Random().nextInt(30) + 5);
 		// Retourner l'instance du personnage
 		System.out.println(mob1);
 		return mob1;
@@ -142,8 +157,8 @@ public class Monde {
 		BasicAttaque a = new BasicAttaque("nom", 10, 50, "ceci est une attaque basique");
 		System.out.println("entrer le nom de l'attaque est ");
 		a.setNom(scanner.next());
-		if (a.getNom().equals("") ) {
-			a.setNom( scanner.nextLine() );
+		if (a.getNom().equals("")) {
+			a.setNom(scanner.nextLine());
 		}
 		return a;
 	}
@@ -203,8 +218,8 @@ public class Monde {
 	 * @param monstre    qui combat
 	 * @return le vainqueur du combat
 	 */
-	public static Combattant afficherMort(Combattant personnage, Combattant monstre) {
-		Combattant vaincu;
+	public static ICombattant afficherMort(ICombattant personnage, ICombattant monstre) {
+		ICombattant vaincu;
 		if (personnage.getPointDeVie() <= 0 && monstre.getPointDeVie() <= 0) {
 			vaincu = null;
 			System.out.println("vous vous etes entretuer et vous etes mort avec le monstre.");
@@ -226,7 +241,7 @@ public class Monde {
 	 * @param personnage qui attaque.
 	 * @param monstre    qui riposte.
 	 */
-	public static void combat(Combattant personnage, Combattant monstre) {
+	public static void combat(ICombattant personnage, ICombattant monstre) {
 		int tour = 1;
 		// definir un boolean turn
 		boolean turn = true;
@@ -258,7 +273,7 @@ public class Monde {
 	 * @param combattant1 qui attaque.
 	 * @param combattant2 qui riposte.
 	 */
-	public static void combat2(Combattant combattant1, Combattant combattant2) {
+	public static void combat2(ICombattant combattant1, ICombattant combattant2) {
 		int tour = 1;
 		boolean turn = true;
 		while (combattant1.getPointDeVie() > 0 && combattant2.getPointDeVie() > 0) {
@@ -267,9 +282,8 @@ public class Monde {
 				combattant1.attaquer(combattant2);
 				System.out.println("il reste " + combattant2.getPointDeVie() + " PV à votre adversaire");
 			} else {
-				System.out.println("votre adversaire vous inflige " + combattant2.getDegats() + "!");
 				combattant2.attaquer(combattant1);
-				System.out.println("il vous reste " + combattant1.getPointDeVie());
+				System.out.println("il vous reste " + combattant1.getPointDeVie() + " PV");
 			}
 			turn = !turn;
 			tour++;
@@ -278,7 +292,6 @@ public class Monde {
 
 		afficherMort(combattant1, combattant2);
 	}
-
 
 	public static List<Monstre> getMeute() {
 		return meute;
